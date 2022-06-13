@@ -3,7 +3,7 @@ import React from 'react';
 import { Categories, Sort, PizzaBlock } from '../components';
 import Skeleton from '../components/PizzaBlock/Skeleton';
 
-const Home = () => {
+const Home = ({ searchValue }) => {
   const [items, setItems] = React.useState([]);
   const [isLoading, setIsLoading] = React.useState(true);
   const [categoryId, setCategoryId] = React.useState(0);
@@ -12,9 +12,7 @@ const Home = () => {
     sortProperty: 'rating',
   });
 
-  
   React.useEffect(() => {
-
     const order = sortType.sortProperty.includes('-') ? 'asc' : 'desc';
     const sortBy = sortType.sortProperty.replace('-', '');
     const category = categoryId === 0 ? '' : `category=${categoryId}`;
@@ -29,7 +27,21 @@ const Home = () => {
         setIsLoading(false);
       });
     window.scrollTo(0, 0);
-  }, [categoryId, sortType]);
+  }, [categoryId, sortType, searchValue]);
+
+  const pizzas = items
+  .filter((obj) => {
+    if (obj.title.toLowerCase().includes(searchValue?.toLowerCase())) {
+      return true;
+    }
+    return false;
+  })
+  .map((pizza, index) => (
+    <PizzaBlock {...pizza} key={index} />
+  ));
+  const skeleton = [...new Array(6)].map((_, index) => (
+    <Skeleton key={index} />
+  ));
 
   return (
     <>
@@ -41,11 +53,7 @@ const Home = () => {
         <Sort value={sortType} onChangeSort={(i) => setSortType(i)} />
       </div>
       <h2 className="content__title">Все пиццы</h2>
-      <div className="content__items">
-        {isLoading
-          ? [...new Array(6)].map((_, index) => <Skeleton key={index} />)
-          : items.map((pizza, index) => <PizzaBlock {...pizza} key={index} />)}
-      </div>
+      <div className="content__items">{isLoading ? skeleton : pizzas}</div>
     </>
   );
 };
