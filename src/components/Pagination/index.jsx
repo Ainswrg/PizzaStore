@@ -1,4 +1,3 @@
-import React from 'react';
 import styles from './Pagination.module.scss';
 
 function Pagination({ page, setPage }) {
@@ -13,11 +12,7 @@ function Pagination({ page, setPage }) {
       <ul className={styles.pages}>
         {[...new Array(3)].map((_, index) => (
           <li
-            className={
-              index + 1 === page
-                ? `${styles.button} ${styles.currentPage}`
-                : styles.button
-            }
+            className={index + 1 === page ? `${styles.button} ${styles.currentPage}` : styles.button}
             key={index}
             onClick={() => setPage(index + 1)}
           >

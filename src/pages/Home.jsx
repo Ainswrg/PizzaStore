@@ -1,5 +1,6 @@
 import React from 'react';
 import { useSelector } from 'react-redux';
+import axios from 'axios';
 
 import { Categories, Sort, PizzaBlock } from '../components';
 import Pagination from '../components/Pagination';
@@ -10,6 +11,7 @@ const Home = () => {
   const [items, setItems] = React.useState([]);
   const [isLoading, setIsLoading] = React.useState(true);
   const [page, setPage] = React.useState(1);
+  const BASE_URL = 'https://62a2d5c25bd3609cee5b7a72.mockapi.io/items';
 
   React.useEffect(() => {
     const order = sort.sortProperty.includes('-') ? 'asc' : 'desc';
@@ -18,14 +20,13 @@ const Home = () => {
     const search = searchValue ? `&search=${searchValue}` : '';
 
     setIsLoading(true);
-    fetch(
-      `https://62a2d5c25bd3609cee5b7a72.mockapi.io/items?page=${page}&limit=${4}&${category}&sortBy=${sortBy}&order=${order}${search}`
-    )
-      .then((res) => res.json())
-      .then((data) => {
-        setItems(data);
+    axios
+      .get(`${BASE_URL}?page=${page}&limit=${4}&${category}&sortBy=${sortBy}&order=${order}${search}`)
+      .then((res) => {
+        setItems(res.data);
         setIsLoading(false);
       });
+
     window.scrollTo(0, 0);
   }, [categoryId, sort, searchValue, page]);
 
