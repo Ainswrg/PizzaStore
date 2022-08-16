@@ -1,4 +1,3 @@
-/* eslint-disable react/display-name */
 import React from 'react';
 import { useDispatch } from 'react-redux';
 import { setSortType } from '../redux/slices/filterSlice';
@@ -12,16 +11,31 @@ export const sortList = [
   { name: 'алфавиту (ASC)', sortProperty: '-title' },
 ];
 
-export const Sort = React.memo(({ value }) => {
+const Sort = React.memo(function Sort({ value }) {
   const dispatch = useDispatch();
   const [open, setOpen] = React.useState(false);
+  const sortRef = React.useRef();
+
   const onClickActiveType = (index) => {
     dispatch(setSortType(index));
     setOpen(false);
   };
 
+  React.useEffect(() => {
+    const handleClickOutside = (e) => {
+      if (!e.composedPath().includes(sortRef.current)) {
+        setOpen(false);
+      }
+    };
+    document.body.addEventListener('click', handleClickOutside);
+
+    return () => {
+      document.body.removeEventListener('click', handleClickOutside);
+    };
+  }, []);
+
   return (
-    <div className="sort">
+    <div ref={sortRef} className="sort">
       <div className="sort__label">
         <svg width="10" height="6" viewBox="0 0 10 6" fill="none" xmlns="http://www.w3.org/2000/svg">
           <path
