@@ -6,7 +6,10 @@ import './index.css';
 import App from './App';
 import { store } from './redux/store';
 
-const root = ReactDOM.createRoot(document.getElementById('root'));
+const rootElement = document.getElementById('root');
+if (!(rootElement instanceof HTMLElement)) throw new Error('Root element not found');
+
+const root = ReactDOM.createRoot(rootElement);
 root.render(
   <BrowserRouter>
     <Provider store={store}>
