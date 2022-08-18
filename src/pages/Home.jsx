@@ -79,7 +79,7 @@ const Home = () => {
     isMounted.current = true;
   }, [categoryId, sort, searchValue, currentPage]);
 
-  const pizzas = items.map((pizza) => <PizzaBlock {...pizza} key={pizza.id} />);
+  const pizzas = items.map((pizza) => <PizzaBlock key={pizza.id} {...pizza} />);
   const skeleton = [...new Array(6)].map((_, index) => <Skeleton key={index} />);
 
   return (
