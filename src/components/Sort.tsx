@@ -2,7 +2,15 @@ import React from 'react';
 import { useDispatch } from 'react-redux';
 import { setSortType } from '../redux/slices/filterSlice';
 
-export const sortList = [
+type TSortList = {
+  name: string;
+  sortProperty: string;
+};
+
+// type M = MouseEvent & {
+//   path: Node[];
+// };
+export const sortList: TSortList[] = [
   { name: 'популярности (DESC)', sortProperty: 'rating' },
   { name: 'популярности (ASC)', sortProperty: '-rating' },
   { name: 'цене (DESC)', sortProperty: 'price' },
@@ -11,18 +19,19 @@ export const sortList = [
   { name: 'алфавиту (ASC)', sortProperty: '-title' },
 ];
 
-const Sort = React.memo(function Sort({ value }) {
+const Sort: React.FC<any> = React.memo(function Sort({ value }) {
   const dispatch = useDispatch();
   const [open, setOpen] = React.useState(false);
-  const sortRef = React.useRef();
+  const sortRef = React.useRef<HTMLDivElement>(null);
 
-  const onClickActiveType = (index) => {
-    dispatch(setSortType(index));
+  const onClickActiveType = (obj: TSortList) => {
+    dispatch(setSortType(obj));
     setOpen(false);
   };
 
   React.useEffect(() => {
-    const handleClickOutside = (e) => {
+    const handleClickOutside = (e: any) => {
+      console.log(e.composedPath)
       if (!e.composedPath().includes(sortRef.current)) {
         setOpen(false);
       }

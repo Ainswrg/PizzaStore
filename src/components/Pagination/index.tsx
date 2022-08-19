@@ -1,6 +1,12 @@
+import React from 'react';
 import styles from './Pagination.module.scss';
 
-function Pagination({ currentPage, onChangePage }) {
+type TPaginationProps = {
+  currentPage: number;
+  onChangePage: (page: number) => void;
+};
+
+const Pagination: React.FC<TPaginationProps> = ({ currentPage, onChangePage }) => {
   const pagePlus = () => (currentPage <= 3 ? onChangePage(currentPage + 1) : null);
   const pageMinus = () => (currentPage > 1 ? onChangePage(currentPage - 1) : null);
 

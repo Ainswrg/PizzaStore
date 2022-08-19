@@ -3,23 +3,48 @@ import { useSelector, useDispatch } from 'react-redux';
 import qs from 'qs';
 import { useNavigate } from 'react-router-dom';
 
-import { selectFilter, setCurrentPage, setFilters } from '../redux/slices/filterSlice';
+import { selectFilter, setCategoryId, setCurrentPage, setFilters } from '../redux/slices/filterSlice';
 import { fetchPizzas, selectPizzaData } from '../redux/slices/pizzaSlice';
 import { Categories, Sort, PizzaBlock } from '../components';
 import Pagination from '../components/Pagination';
 import Skeleton from '../components/PizzaBlock/Skeleton';
 import { sortList } from '../components/Sort';
+import { IPizza } from '../@types/interfaces';
+// import { IPizza } from '../@types/interfaces';
 
-const Home = () => {
+// interface IData {
+//   items: IPizza[];
+//   status: string;
+// }
+type TPizzaProps = {
+  items: IPizza[];
+  status: string;
+};
+
+type TFilterProps = {
+  categoryId: number;
+  sort: {
+    name: string;
+    sortProperty: string;
+  };
+  searchValue: string;
+  currentPage: number;
+};
+
+const Home: React.FC = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const isSearch = React.useRef(false);
   const isMounted = React.useRef(false);
 
-  const { items, status } = useSelector(selectPizzaData);
-  const { categoryId, currentPage, sort, searchValue } = useSelector(selectFilter);
+  const { items, status }: TPizzaProps = useSelector(selectPizzaData);
+  const { categoryId, currentPage, sort, searchValue }: TFilterProps = useSelector(selectFilter);
 
-  const onChangePage = (number) => {
+  const onChangeCategory = (id: number) => {
+    dispatch(setCategoryId(id));
+  };
+
+  const onChangePage = (number: number) => {
     dispatch(setCurrentPage(number));
   };
 
@@ -30,6 +55,7 @@ const Home = () => {
     const search = searchValue ? `&search=${searchValue}` : '';
 
     dispatch(
+      // @ts-ignore
       fetchPizzas({
         order,
         sortBy,
@@ -85,7 +111,7 @@ const Home = () => {
   return (
     <>
       <div className="content__top">
-        <Categories />
+        <Categories value={categoryId} onChangeCategory={onChangeCategory} />
         <Sort value={sort} />
       </div>
       <h2 className="content__title">Все пиццы</h2>

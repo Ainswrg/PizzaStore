@@ -1,11 +1,12 @@
 import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
+import { IPizza } from '@/src/@types/interfaces';
 import { addItem, selectCartItemById } from '../../redux/slices/cartSlice';
 
 const typeNames = ['тонкое', 'традиционное'];
 
-const PizzaBlock = ({ id, title, price, imageUrl, sizes, types }) => {
+const PizzaBlock: React.FC<IPizza> = ({ id, title, price, imageUrl, sizes, types }) => {
   const cartItem = useSelector(selectCartItemById(id));
 
   const dispatch = useDispatch();

@@ -1,20 +1,10 @@
 import React from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import axios, { AxiosResponse } from 'axios';
-
-interface IPizza {
-  id: string;
-  title: string;
-  price: number;
-  types: number[];
-  sizes: number[];
-  imageUrl: string;
-  category: number;
-  rating: number;
-}
+import { IPizza } from '../@types/interfaces';
 
 const FullPizza: React.FC = () => {
-  const [pizza, setPizza] = React.useState<IPizza>();
+  const [pizza, setPizza] = React.useState<Omit<IPizza, 'quantity'>>();
   const { id } = useParams();
   const navigate = useNavigate();
 

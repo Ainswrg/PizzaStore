@@ -1,12 +1,19 @@
+import React from 'react';
 import { Link } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import CartItem from '../components/CartItem';
 import { clearItems, selectCart } from '../redux/slices/cartSlice';
 import CartEmpty from '../components/CartEmpty';
+import { IPizza } from '../@types/interfaces';
 
-const Cart = () => {
+type TCartProps = {
+  items: IPizza[];
+  totalPrice: number;
+};
+
+const Cart: React.FC = () => {
   const dispatch = useDispatch();
-  const { totalPrice, items } = useSelector(selectCart);
+  const { totalPrice, items }: TCartProps = useSelector(selectCart);
 
   const totalQuantity = items.reduce((total, item) => total + item.quantity, 0);
 

@@ -1,7 +1,17 @@
 /* eslint-disable no-param-reassign */
-import { createSlice } from '@reduxjs/toolkit';
+import { createSlice, Slice } from '@reduxjs/toolkit';
 
-const initialState = {
+export interface IState {
+  categoryId: number;
+  currentPage: number;
+  sort: {
+    name: string;
+    sortProperty: string;
+  };
+  searchValue: string;
+}
+
+const initialState: IState = {
   categoryId: 0,
   currentPage: 1,
   sort: {
@@ -11,7 +21,7 @@ const initialState = {
   searchValue: '',
 };
 
-const filterSlice = createSlice({
+const filterSlice: Slice<IState> = createSlice({
   name: 'filter',
   initialState,
   reducers: {
@@ -36,8 +46,8 @@ const filterSlice = createSlice({
   },
 });
 
-export const selectSort = (state) => state.filter.sort;
-export const selectFilter = (state) => state.filter;
+// export const selectSort = (state: SliceCaseReducers<IState | string>) => state.filter.sort;
+export const selectFilter = (state: any) => state.filter;
 
 export const { setCategoryId, setSortType, setSearchValue, setCurrentPage, setFilters } = filterSlice.actions;
 
