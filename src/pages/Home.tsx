@@ -10,7 +10,6 @@ import Pagination from '../components/Pagination';
 import Skeleton from '../components/PizzaBlock/Skeleton';
 import { sortList } from '../components/Sort';
 import { IPizza } from '../@types/interfaces';
-// import { IPizza } from '../@types/interfaces';
 
 // interface IData {
 //   items: IPizza[];
@@ -40,11 +39,11 @@ const Home: React.FC = () => {
   const { items, status }: TPizzaProps = useSelector(selectPizzaData);
   const { categoryId, currentPage, sort, searchValue }: TFilterProps = useSelector(selectFilter);
 
-  const onChangeCategory = (id: number) => {
+  const onChangeCategory = (id: number): void => {
     dispatch(setCategoryId(id));
   };
 
-  const onChangePage = (number: number) => {
+  const onChangePage = (number: number): void => {
     dispatch(setCurrentPage(number));
   };
 

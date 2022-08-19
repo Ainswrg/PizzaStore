@@ -7,9 +7,10 @@ type TSortList = {
   sortProperty: string;
 };
 
-// type M = MouseEvent & {
-//   path: Node[];
-// };
+type TPopupClick = MouseEvent & {
+  composedPath: Node[];
+};
+
 export const sortList: TSortList[] = [
   { name: 'популярности (DESC)', sortProperty: 'rating' },
   { name: 'популярности (ASC)', sortProperty: '-rating' },
@@ -30,9 +31,11 @@ const Sort: React.FC<any> = React.memo(function Sort({ value }) {
   };
 
   React.useEffect(() => {
-    const handleClickOutside = (e: any) => {
-      console.log(e.composedPath)
-      if (!e.composedPath().includes(sortRef.current)) {
+    const handleClickOutside = (e: MouseEvent) => {
+      // работает и без, это если бы использовал path
+      const event = e as TPopupClick;
+
+      if (sortRef.current && !event.composedPath().includes(sortRef.current)) {
         setOpen(false);
       }
     };

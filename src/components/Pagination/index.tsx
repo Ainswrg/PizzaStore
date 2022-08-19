@@ -31,6 +31,6 @@ const Pagination: React.FC<TPaginationProps> = ({ currentPage, onChangePage }) =
       </button>
     </div>
   );
-}
+};
 
 export default Pagination;
