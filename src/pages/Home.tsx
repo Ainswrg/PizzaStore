@@ -2,17 +2,16 @@
 /* eslint-disable no-unused-vars */
 import React from 'react';
 import { useSelector } from 'react-redux';
-// import qs from 'qs';
-// import { useNavigate } from 'react-router-dom';
-
-import { selectFilter, setCategoryId, setCurrentPage, setFilters, SortPropertyEnum } from '../redux/slices/filterSlice';
-import { fetchPizzas, IPizza, SearchPizzaParams, selectPizzaData } from '../redux/slices/pizzaSlice';
 import { Categories, Sort, PizzaBlock } from '../components';
 import Pagination from '../components/Pagination';
 import Skeleton from '../components/PizzaBlock/Skeleton';
-// import { sortList } from '../components/Sort';
-import { Status } from '../@types/enums';
 import { useAppDispatch } from '../redux/store';
+import { SortPropertyEnum } from '../redux/filter/types';
+import { selectFilter } from '../redux/filter/selectrors';
+import { setCategoryId, setCurrentPage } from '../redux/filter/slice';
+import { IPizza, Status } from '../redux/pizza/types';
+import { selectPizzaData } from '../redux/pizza/selectors';
+import { fetchPizzas } from '../redux/pizza/slice';
 
 type TPizzaProps = {
   items: IPizza[];

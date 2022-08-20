@@ -9,5 +9,5 @@ declare module '*.png' {
 declare module '*.scss' {
   const value: any;
   export default value;
-};
+}
 declare module 'lodash.debounce';

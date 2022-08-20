@@ -2,8 +2,10 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import CartItem from '../components/CartItem';
-import { clearItems, selectCart, TCartItem } from '../redux/slices/cartSlice';
 import CartEmpty from '../components/CartEmpty';
+import { selectCart } from '../redux/cart/selectors';
+import { TCartItem } from '../redux/cart/types';
+import { clearItems } from '../redux/cart/slice';
 
 type TCartProps = {
   items: TCartItem[];

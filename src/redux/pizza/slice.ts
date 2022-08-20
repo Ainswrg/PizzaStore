@@ -1,31 +1,9 @@
 /* eslint-disable no-param-reassign */
 import { createSlice, createAsyncThunk, PayloadAction } from '@reduxjs/toolkit';
 import axios from 'axios';
-// import { IPizza } from '@/src/@types/interfaces';
-import { Status } from '../../@types/enums';
-import { RootState } from '../store';
+import { IPizza, IPizzaSlice, SearchPizzaParams, Status } from './types';
 
 const BASE_URL = 'https://62a2d5c25bd3609cee5b7a72.mockapi.io/items';
-
-export interface IPizza {
-  id: string;
-  title: string;
-  price: number;
-  types: number[];
-  sizes: number[];
-  imageUrl: string;
-  category: number;
-  rating: number;
-  quantity: number;
-}
-
-export type SearchPizzaParams = {
-  order: string;
-  sortBy: string;
-  category: string;
-  search: string;
-  currentPage: string;
-};
 
 export const fetchPizzas = createAsyncThunk<IPizza[], SearchPizzaParams>('pizza/fetchPizzasStatus', async (params) => {
   const { order, sortBy, category, search, currentPage } = params;
@@ -33,11 +11,6 @@ export const fetchPizzas = createAsyncThunk<IPizza[], SearchPizzaParams>('pizza/
   const { data } = await axios.get<IPizza[]>(`${BASE_URL}${query}`);
   return data;
 });
-
-interface IPizzaSlice {
-  items: IPizza[];
-  status: Status;
-}
 
 const initialState: IPizzaSlice = {
   items: [],
@@ -67,8 +40,6 @@ const pizzaSlice = createSlice({
     },
   },
 });
-
-export const selectPizzaData = (state: RootState) => state.pizza;
 
 export const { setItems } = pizzaSlice.actions;
 

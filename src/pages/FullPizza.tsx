@@ -1,7 +1,7 @@
 import React from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import axios, { AxiosResponse } from 'axios';
-import { IPizza } from '../redux/slices/pizzaSlice';
+import { IPizza } from '../redux/pizza/types';
 
 const FullPizza: React.FC = () => {
   const [pizza, setPizza] = React.useState<Omit<IPizza, 'quantity'>>();

@@ -1,27 +1,6 @@
 /* eslint-disable no-param-reassign */
 import { createSlice, PayloadAction, Slice } from '@reduxjs/toolkit';
-import { RootState } from '../store';
-
-export enum SortPropertyEnum {
-  RATING_DESC = 'rating',
-  RATING_ASC = '-rating',
-  TITLE_DESC = 'title',
-  TITLE_ASC = '-title',
-  PRICE_DESC = 'price',
-  PRICE_ASC = '-price',
-}
-
-export type Sort = {
-  name: string;
-  sortProperty: SortPropertyEnum;
-};
-
-export interface FilterSliceState {
-  categoryId: number;
-  currentPage: number;
-  sort: Sort;
-  searchValue: string;
-}
+import { FilterSliceState, Sort, SortPropertyEnum } from './types';
 
 const initialState: FilterSliceState = {
   categoryId: 0,
@@ -54,7 +33,6 @@ const filterSlice: Slice<FilterSliceState> = createSlice({
         state.categoryId = Number(action.payload.categoryId);
         state.sort = action.payload.sort;
         state.currentPage = Number(action.payload.currentPage);
-        // state.searchValue = action.payload.searchValue;
       } else {
         state.currentPage = 1;
         state.categoryId = 0;
@@ -66,9 +44,6 @@ const filterSlice: Slice<FilterSliceState> = createSlice({
     },
   },
 });
-
-export const selectSort = (state: RootState) => state.filter.sort;
-export const selectFilter = (state: RootState) => state.filter;
 
 export const { setCategoryId, setSortType, setSearchValue, setCurrentPage, setFilters } = filterSlice.actions;
 

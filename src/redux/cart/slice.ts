@@ -1,26 +1,14 @@
 /* eslint-disable no-param-reassign */
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-// import { TCartItem } from '@/src/@types/type';
-import { RootState } from '../store';
+import { calcTotalPrice } from '../../utils/calcTotalPrice';
+import { getCartFromLS } from '../../utils/getCartFromLS';
+import { ICartSliceState, TCartItem } from './types';
 
-export type TCartItem = {
-  id: string;
-  title: string;
-  price: number;
-  imageUrl: string;
-  type: string;
-  size: number;
-  quantity: number;
-};
-
-interface ICartSliceState {
-  totalPrice: number;
-  items: TCartItem[];
-}
+const { items, totalPrice } = getCartFromLS();
 
 const initialState: ICartSliceState = {
-  totalPrice: 0,
-  items: [],
+  totalPrice,
+  items,
 };
 
 const cartSlice = createSlice({
@@ -35,9 +23,7 @@ const cartSlice = createSlice({
         state.items.push({ ...action.payload, quantity: 1 });
       }
 
-      state.totalPrice = state.items.reduce((sum, item) => {
-        return sum + item.price * item.quantity;
-      }, 0);
+      state.totalPrice = calcTotalPrice(state.items);
     },
     minusItem: (state, action: PayloadAction<string>) => {
       const findItem = state.items.find((item) => item.id === action.payload);
@@ -61,9 +47,6 @@ const cartSlice = createSlice({
     },
   },
 });
-
-export const selectCart = (state: RootState) => state.cart;
-export const selectCartItemById = (id: string) => (state: RootState) => state.cart.items.find((item) => item.id === id);
 
 export const { addItem, removeItem, clearItems, minusItem } = cartSlice.actions;
 
