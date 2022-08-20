@@ -3,14 +3,13 @@ import { Link, useLocation } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import logoSvg from '../assets/img/pizza-logo.svg';
 import Search from './Search';
-import { selectCart } from '../redux/slices/cartSlice';
-import type { IPizza } from '../@types/interfaces';
+import { selectCart, TCartItem } from '../redux/slices/cartSlice';
 
 const Header: React.FC = () => {
-  const { items, totalPrice }: { items: IPizza[]; totalPrice: number } = useSelector(selectCart);
+  const { items, totalPrice }: { items: TCartItem[]; totalPrice: number } = useSelector(selectCart);
   const location = useLocation();
 
-  const totalQuantity = items.reduce((sum: number, item: IPizza) => sum + item.quantity, 0);
+  const totalQuantity = items.reduce((sum: number, item: TCartItem) => sum + item.quantity, 0);
 
   return (
     <div className="header">

@@ -1,13 +1,12 @@
 import React from 'react';
 import { useDispatch } from 'react-redux';
-import { IPizza } from '../@types/interfaces';
-import { addItem, minusItem, removeItem } from '../redux/slices/cartSlice';
+import { addItem, minusItem, removeItem, TCartItem } from '../redux/slices/cartSlice';
 
-const CartItem: React.FC<IPizza> = ({ id, title, types, sizes, price, quantity, imageUrl }) => {
+const CartItem: React.FC<TCartItem> = ({ id, title, type, size, price, quantity, imageUrl }) => {
   const dispatch = useDispatch();
 
   const onClickPlus = (): void => {
-    dispatch(addItem({ id }));
+    dispatch(addItem({ id } as TCartItem));
   };
   const onClickMinus = () => {
     dispatch(minusItem(id));
@@ -24,7 +23,7 @@ const CartItem: React.FC<IPizza> = ({ id, title, types, sizes, price, quantity, 
       <div className="cart__item-info">
         <h3>{title}</h3>
         <p>
-          {types}, {sizes} см.
+          {type}, {size} см.
         </p>
       </div>
       <div className="cart__item-count">
