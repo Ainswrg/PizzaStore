@@ -42,12 +42,10 @@ const cartSlice = createSlice({
     minusItem: (state, action: PayloadAction<string>) => {
       const findItem = state.items.find((item) => item.id === action.payload);
       if (!findItem) throw new Error('Такого элемента нет в корзине');
-      if (findItem.quantity > 1) {
-        findItem.quantity -= 1;
-        state.totalPrice = state.items.reduce((sum, item) => {
-          return sum + item.price * item.quantity;
-        }, 0);
-      }
+      findItem.quantity -= 1;
+      state.totalPrice = state.items.reduce((sum, item) => {
+        return sum + item.price * item.quantity;
+      }, 0);
     },
     removeItem: (state, action: PayloadAction<string>) => {
       if (window.confirm('Ты действительно хочешь удалить этот предмет?')) {
