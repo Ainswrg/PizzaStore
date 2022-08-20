@@ -6,7 +6,7 @@ type TPaginationProps = {
   onChangePage: (page: number) => void;
 };
 
-const Pagination: React.FC<TPaginationProps> = ({ currentPage, onChangePage }) => {
+export const Pagination: React.FC<TPaginationProps> = ({ currentPage, onChangePage }) => {
   const pagePlus = () => (currentPage <= 3 ? onChangePage(currentPage + 1) : null);
   const pageMinus = () => (currentPage > 1 ? onChangePage(currentPage - 1) : null);
 
@@ -32,5 +32,3 @@ const Pagination: React.FC<TPaginationProps> = ({ currentPage, onChangePage }) =
     </div>
   );
 };
-
-export default Pagination;

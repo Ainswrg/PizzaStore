@@ -3,7 +3,7 @@ import { useDispatch } from 'react-redux';
 import { addItem, minusItem, removeItem } from '../redux/cart/slice';
 import { TCartItem } from '../redux/cart/types';
 
-const CartItem: React.FC<TCartItem> = ({ id, title, type, size, price, quantity, imageUrl }) => {
+export const CartItem: React.FC<TCartItem> = ({ id, title, type, size, price, quantity, imageUrl }) => {
   const dispatch = useDispatch();
 
   const onClickPlus = (): void => {
@@ -78,5 +78,3 @@ const CartItem: React.FC<TCartItem> = ({ id, title, type, size, price, quantity,
     </div>
   );
 };
-
-export default CartItem;

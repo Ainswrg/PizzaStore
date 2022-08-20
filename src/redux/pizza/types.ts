@@ -1,4 +1,4 @@
-interface IPizza {
+export interface IPizza {
   id: string;
   title: string;
   price: number;
@@ -10,23 +10,20 @@ interface IPizza {
   quantity: number;
 }
 
-interface IPizzaSlice {
+export interface IPizzaSlice {
   items: IPizza[];
   status: Status;
 }
 
-type SearchPizzaParams = {
+export type SearchPizzaParams = {
   order: string;
   sortBy: string;
   category: string;
   search: string;
   currentPage: string;
 };
-const enum Status {
+export const enum Status {
   LOADING = 'loading',
   SUCCESS = 'success',
   ERROR = 'error',
 }
-
-export { Status };
-export type { IPizza, SearchPizzaParams, IPizzaSlice };

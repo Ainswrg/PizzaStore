@@ -1,4 +1,4 @@
-enum SortPropertyEnum {
+export enum SortPropertyEnum {
   RATING_DESC = 'rating',
   RATING_ASC = '-rating',
   TITLE_DESC = 'title',
@@ -7,17 +7,14 @@ enum SortPropertyEnum {
   PRICE_ASC = '-price',
 }
 
-type Sort = {
+export type Sort = {
   name: string;
   sortProperty: SortPropertyEnum;
 };
 
-interface FilterSliceState {
+export interface FilterSliceState {
   categoryId: number;
   currentPage: number;
   sort: Sort;
   searchValue: string;
 }
-
-export { SortPropertyEnum };
-export type { Sort, FilterSliceState };

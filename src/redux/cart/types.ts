@@ -1,4 +1,4 @@
-type TCartItem = {
+export type TCartItem = {
   id: string;
   title: string;
   price: number;
@@ -8,9 +8,7 @@ type TCartItem = {
   quantity: number;
 };
 
-interface ICartSliceState {
+export interface ICartSliceState {
   totalPrice: number;
   items: TCartItem[];
 }
-
-export type { TCartItem, ICartSliceState };

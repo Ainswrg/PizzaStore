@@ -1,22 +1,17 @@
 import React from 'react';
 import { useDispatch } from 'react-redux';
 import { setSortType } from '../redux/filter/slice';
-import { SortPropertyEnum } from '../redux/filter/types';
-
-type TSortList = {
-  name: string;
-  sortProperty: SortPropertyEnum;
-};
+import { Sort as SortType, SortPropertyEnum } from '../redux/filter/types';
 
 type TPopupClick = MouseEvent & {
   composedPath: Node[];
 };
 
 type TSortPopupProps = {
-  value: TSortList;
+  value: SortType;
 };
 
-export const sortList: TSortList[] = [
+export const sortList: SortType[] = [
   { name: 'популярности (DESC)', sortProperty: SortPropertyEnum.RATING_DESC },
   { name: 'популярности (ASC)', sortProperty: SortPropertyEnum.RATING_ASC },
   { name: 'цене (DESC)', sortProperty: SortPropertyEnum.PRICE_DESC },
@@ -25,12 +20,12 @@ export const sortList: TSortList[] = [
   { name: 'алфавиту (ASC)', sortProperty: SortPropertyEnum.TITLE_ASC },
 ];
 
-const Sort: React.FC<TSortPopupProps> = React.memo(({ value }) => {
+export const Sort: React.FC<TSortPopupProps> = React.memo(({ value }) => {
   const dispatch = useDispatch();
   const [open, setOpen] = React.useState(false);
   const sortRef = React.useRef<HTMLDivElement>(null);
 
-  const onClickActiveType = (obj: TSortList) => {
+  const onClickActiveType = (obj: SortType) => {
     dispatch(setSortType(obj));
     setOpen(false);
   };
@@ -81,5 +76,3 @@ const Sort: React.FC<TSortPopupProps> = React.memo(({ value }) => {
     </div>
   );
 });
-
-export default Sort;

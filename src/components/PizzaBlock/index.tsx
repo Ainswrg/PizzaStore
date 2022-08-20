@@ -16,7 +16,7 @@ type TCartItem = {
   quantity: number;
 };
 
-const PizzaBlock: React.FC<IPizza> = ({ id, title, price, imageUrl, sizes, types }) => {
+export const PizzaBlock: React.FC<IPizza> = ({ id, title, price, imageUrl, sizes, types }) => {
   const cartItem = useSelector(selectCartItemById(id));
 
   const dispatch = useDispatch();
@@ -76,5 +76,3 @@ const PizzaBlock: React.FC<IPizza> = ({ id, title, price, imageUrl, sizes, types
     </div>
   );
 };
-
-export default PizzaBlock;
