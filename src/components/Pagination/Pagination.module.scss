@@ -1,0 +1,36 @@
+.root {
+  display: inline-flex;
+  height: 40px;
+  align-items: center;
+  width: fit-content;
+  column-gap: 10px;
+
+  .button {
+    border: none;
+    width: 40px;
+    height: 40px;
+    padding: 0;
+    border: 1px solid #fe5f1e;
+    transition: all 0.3s ease-in-out;
+    cursor: pointer;
+    border-radius: 50%;
+
+    &:hover {
+      background-color: rgba(0, 0, 0, 0.5);
+    }
+  }
+
+  .currentPage {
+    background-color: #fe5f1e;
+  }
+  .pages {
+    display: flex;
+    column-gap: 5px;
+
+    li {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+  }
+}
